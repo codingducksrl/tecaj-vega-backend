@@ -4,26 +4,30 @@ $router = new \Bramus\Router\Router();
 
 $router->get('/', function() {
 
-
     $client = new GuzzleHttp\Client();
 
     $query = array();
     parse_str($_SERVER["QUERY_STRING"], $query);
 
-    $appid = $query["appid"];
 
-    $res = $client->request('GET', 'https://store.steampowered.com/api/appdetails',[
-        "query" => [
-            "appids" => $appid
+    $res = $client->request('GET', 'https://store.steampowered.com/api/appdetails', [
+        "query"=>[
+        "appids" => "570"
         ]
-     ]);
+    ]);
 
-    $podatki = json_decode( (string)$res->getBody(), true );
+    $podatki = json_decode((string)$res->getBody(), true);
 
     echo json_encode([
         "message" => "Hello world",
-        "body" => $podatki[$appid]["data"]["name"],
-        "query" => $query,
+        "status" => $res->getStatusCode(),
+        "name" => $podatki["570"]["data"]["name"],
+        "category" => $podatki["570"]["data"]["categories"],
+        "genre" => $podatki["570"]["data"]["genres"],
+        "short_description" => $podatki["570"]["data"]["short_description"],
+        "header_image" => $podatki["570"]["data"]["header_image"],
+        "link" => "https://store.steampowered.com/app/570",
+        "query" => $query
     ]);
 });
 
