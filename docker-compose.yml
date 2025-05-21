@@ -1,26 +1,19 @@
 version: '3.8'
 
-services: 
+services:
   app:
     build:
       context: .
-      dockerfile: ./.devcontainer/Dockerfile
-    image: vega-backend
+      dockerfile: ./.docker/Dockerfile
+    image: vega-backend-2
     volumes:
-      - .:/var/www/html
-
+      - .:/app
     ports:
-      - "8080:8080"
-
-    # Overrides default command so things don't shut down after the process ends.
-    command: /postCreateCommand.sh
+      - "8080:80"
 
     # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
     networks:
       - sail
-
-    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally. 
-    # (Adding the "ports" property to this file will not forward from a Codespace.)
 
   db:
     image: mariadb:10.4
@@ -47,9 +40,7 @@ services:
       PMA_PASSWORD: mariadb
     networks:
       - sail
-    # Add "forwardPorts": ["3306"] to **devcontainer.json** to forward MariaDB locally.
-    # (Adding the "ports" property to this file will not forward from a Codespace.)
-  
+
 volumes:
   mariadb-data:
 

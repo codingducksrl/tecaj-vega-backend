@@ -10,7 +10,7 @@ $router->get('/', function() {
     $query = array();
     parse_str($_SERVER["QUERY_STRING"], $query);
 
-    $appid = $query["appid"];
+    $appid = $query["appid"] ?? "";
 
     $res = $client->request('GET', 'https://store.steampowered.com/api/appdetails',[
         "query" => [
