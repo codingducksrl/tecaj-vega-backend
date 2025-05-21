@@ -3,6 +3,9 @@
 $router = new \Bramus\Router\Router();
 
 $router->get('/', function() {
+
+    
+
     echo json_encode([
         "message" => "Hello world",
     ]);
