@@ -2,6 +2,9 @@
 // Create Router instance
 $router = new \Bramus\Router\Router();
 
+$router->setNamespace("Vscode\TecajVegaBackend\Controllers");
+$router->get('/test',"HelloController@hello");
+
 $router->get('/', function() {
 
     $client = new GuzzleHttp\Client();
