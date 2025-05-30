@@ -10,6 +10,11 @@ services:
       - .:/app
     ports:
       - "8080:80"
+    environment:
+        DB_DATABASE: mariadb
+        DB_USER: mariadb
+        DB_PASSWORD: mariadb
+        DB_HOST: db
     user: "${UID}:${GID}"
 
     # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.

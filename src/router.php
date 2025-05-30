@@ -5,6 +5,14 @@ $router = new \Bramus\Router\Router();
 $router->setNamespace("Vscode\TecajVegaBackend\Controllers");
 $router->get('/test',"HelloController@hello");
 
+$router->get('/env', function() {
+    echo json_encode( [
+        "name"=> $_ENV['DB_DATABASE'],
+        "host"=> $_ENV['DB_HOST'],
+        "username"=> $_ENV['DB_USER'],
+    ]);
+});
+
 $router->get('/', function() {
 
     $client = new GuzzleHttp\Client();
