@@ -3,6 +3,7 @@
 $router = new \Bramus\Router\Router();
 
 $router->setNamespace("Vscode\TecajVegaBackend\Controllers");
+$router->get('/player/{id}',"PlayerController@getID");
 $router->get('/test',"HelloController@hello");
 
 $router->get('/env', function() {
