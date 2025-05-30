@@ -1,6 +1,10 @@
 <?php
 
 namespace Vscode\TecajVegaBackend\Controllers;
+use Vscode\TecajVegaBackend\Models\Uporabnik;
+use Vscode\TecajVegaBackend\Models\Database;
+
+
 
 class PlayerController {
 
@@ -21,6 +25,11 @@ class PlayerController {
                 "slika" => $podatki["response"]["players"][0]["avatarfull"],     
         ]);
 
+/*
+            $slika = $podatki["response"]["players"][0]["avatarfull"];
+            $username = $podatki["response"]["players"][0]["personaname"];
+            
+        Uporabnik::set($id, $slika, $username);*/
     }
 
 }
