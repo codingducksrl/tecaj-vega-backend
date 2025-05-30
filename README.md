@@ -1,3 +1,6 @@
+# Deployment
+Production server: https://api.steam.potep.org/
+
 # Dokumentacija
 
 ### Router
