@@ -45,6 +45,8 @@ $router->get('/', function() {
 
 $router->before('GET|POST|PUT|DELETE', '/.*', function() {
     header('Content-Type: application/json');
+    header('Access-Control-Allow-Origin: *');
+
 });
 
 // Run it!
