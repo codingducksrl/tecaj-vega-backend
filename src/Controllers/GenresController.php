@@ -14,6 +14,8 @@ class GenresController {
     }
 
     public static function reccomendations($STEAM_ID, $GENRES) {
+        $GENRES = str_replace(' ', '-', $GENRES);
+
         $client = new \GuzzleHttp\Client();
             $igre_najbolj_igrane = $client->request('GET', 'https://store.steampowered.com/api/getappsingenre/', [
                 "query"=>[
