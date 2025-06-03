@@ -7,6 +7,7 @@ $router->get('/player/{id}/refresh/',"RefreshController@refresh");
 $router->get('/player/{id}/genres/',"GenresController@genres");
 $router->get('/player/{id}/genres/{genre}',"GenresController@reccomendations");
 $router->get('/player/{id}',"PlayerController@getID");
+$router->get('/MostPlayedGames/{appid}',"MostPlayedGames@getGames");
 $router->get('/test',"HelloController@hello");
 
 $router->get('/env', function() {
