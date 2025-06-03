@@ -80,6 +80,11 @@ class RefreshController {
                 }
             }
         }
+
+        echo json_encode([
+            "message" => "Data refreshed successfully",
+            "status" => 200,
+        ]);
     }
 
 }
