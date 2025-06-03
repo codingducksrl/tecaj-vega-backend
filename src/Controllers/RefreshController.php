@@ -8,7 +8,7 @@ use Vscode\TecajVegaBackend\Models\Uporabnik_ima_kategorije;
 
 class RefreshController {
 
-    public function hello($STEAM_ID) {
+    public function refresh($STEAM_ID) {
         
         $client = new \GuzzleHttp\Client(); // za povezavo
 

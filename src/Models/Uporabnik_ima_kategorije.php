@@ -14,5 +14,20 @@ class Uporabnik_ima_kategorije {
         $stmt->bind_param("isi", $fk_uporabnik, $fk_kategorije, $stevilo_ur);
         $stmt->execute();
     }
+
+    public static function get($fk_uporabnik) {
+        $conn = Database::connect();
+
+        $stmt = $conn->prepare("SELECT ime, stevilo_ur FROM uporabnik_ima_kategorije 
+        JOIN Kategorije ON uporabnik_ima_kategorije.fk_kategorije = Kategorije.ime 
+        JOIN Uporabnik ON uporabnik_ima_kategorije.fk_uporabnik = Uporabnik.SteamID 
+        WHERE fk_uporabnik = ?");
+        $stmt->bind_param("i", $fk_uporabnik);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>
