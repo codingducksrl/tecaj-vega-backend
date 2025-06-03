@@ -16,7 +16,7 @@ class Database {
         $port = $_ENV["DB_PORT"]; 
     
         
-        return new mysqli($host, $port, $dbname, $user, $pass);
+        return new mysqli($host, $user, $pass, $dbname, (int)$port);
         
     }
 }
