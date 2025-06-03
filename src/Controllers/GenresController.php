@@ -13,7 +13,7 @@ class GenresController {
         );
     }
 
-    public static function reccomendations($GENRES) {
+    public static function reccomendations($STEAM_ID, $GENRES) {
         $client = new \GuzzleHttp\Client();
             $igre_najbolj_igrane = $client->request('GET', 'https://store.steampowered.com/api/getappsingenre/', [
                 "query"=>[
