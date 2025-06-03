@@ -1,21 +1,22 @@
 <?php
 
 namespace Vscode\TecajVegaBackend\Controllers;
+use Vscode\TecajVegaBackend\Models\Kategorije;
+use Vscode\TecajVegaBackend\Models\Database;
+use Vscode\TecajVegaBackend\Models\Uporabnik;
+use Vscode\TecajVegaBackend\Models\Uporabnik_ima_kategorije;
 
 class RefreshController {
 
-    public $API_KEY = "E0018A4719E4720F851B48118F8FF458"; // app id
-    public $STEAM_ID = "76561199339613784"; // steam id
-
-    public function hello() {
+    public function hello($STEAM_ID) {
         
         $client = new \GuzzleHttp\Client(); // za povezavo
 
         // pridobimo podatke z Steam API
         $igre_uporabnik = $client->request('GET', 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v1/', [
             "query"=>[
-                "key" => $this->API_KEY,
-                "steamid" => $this->STEAM_ID,
+                "key" => $_ENV["STEAM_API_KEY"],
+                "steamid" => $STEAM_ID,
                 "include_appinfo" => 1,
                 "include_played_free_games" => 1,
                 "format" => "json"
@@ -64,23 +65,25 @@ class RefreshController {
             }
         }
 
+        // shranimo v bazo
+        Uporabnik::add($STEAM_ID);
 
-        // pridobivanje najbolj igranih iger od steam
-        $igre_najbolj_igrane = $client->request('GET', 'https://steamspy.com/api.php/', [
-            "query"=>[
-                "request" => "top100forever",
-            ]
-        ]);
-        $res_igre_najbolj_igrane = json_decode((string)$igre_najbolj_igrane->getBody(), true); // dekodiramo podatke
-
+        if(count($kategorije) == 0){
+            $kategorije = "No categories found";
+        }
+        else {
+            $keys = array_keys($kategorije); // pridobimo ključe kategorij
+            for($i = 0; $i < count($keys); $i++) { // iteriramo skozi ključe
+                if($kategorije[$keys[$i]] != 0) {
+                    Kategorije::set($keys[$i]); // shranimo kategorije v bazo
+                    Uporabnik_ima_kategorije::set($STEAM_ID, $keys[$i], ceil($kategorije[$keys[$i]] / 60)); // shranimo relacije uporabnik-kategorija v bazo
+                }
+            }
+        }
 
         echo json_encode([
-            // get playtime
-            // "playtime" => $res["response"]["games"][0]["playtime_forever"],
-            // get id
-            // "id" => $res["response"]["games"][0]["appid"],
-            "message1" => $kategorije,
-            "message2" => $res_igre_najbolj_igrane,
+            "message" => "Data refreshed successfully",
+            "status" => 200,
         ]);
     }
 

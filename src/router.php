@@ -3,9 +3,9 @@
 $router = new \Bramus\Router\Router();
 
 $router->setNamespace("Vscode\TecajVegaBackend\Controllers");
+$router->get('/player/{id}/refresh/',"RefreshController@hello");
 $router->get('/player/{id}',"PlayerController@getID");
 $router->get('/test',"HelloController@hello");
-$router->get('/refresh',"RefreshController@hello");
 
 $router->get('/env', function() {
     echo json_encode( [

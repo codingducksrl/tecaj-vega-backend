@@ -6,70 +6,13 @@ use mysqli;
 
 class Uporabnik {
 
-    public static function set($id) {
+    public static function add($STEAM_ID) {
         
         $conn = Database::connect();
 
-        $conn->query("INSERT IGNORE INTO Uporabnik (SteamID) VALUES ($id)");
+        $conn->query("INSERT IGNORE INTO Uporabnik (SteamID) VALUES ($STEAM_ID)");
     }
 
-    
 
 }
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- SEND HELP -->
