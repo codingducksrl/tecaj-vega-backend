@@ -4,6 +4,7 @@ $router = new \Bramus\Router\Router();
 
 $router->setNamespace("Vscode\TecajVegaBackend\Controllers");
 $router->get('/player/{id}',"PlayerController@getID");
+$router->get('/MostPlayedGames/{appid}',"MostPlayedGames@getGames");
 $router->get('/test',"HelloController@hello");
 $router->get('/refresh',"RefreshController@hello");
 
